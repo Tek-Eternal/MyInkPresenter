@@ -1,0 +1,61 @@
+﻿<RadioButton x:Class="MyInkPresenter.ColorRadioButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="480" d:DesignWidth="480" Name="myColorRadioButton" >
+    <!--自定义空间模板-->
+        <RadioButton.Template>
+        <ControlTemplate x:Name="ctrlTemplate"  TargetType="RadioButton">
+            <Grid Background="{TemplateBinding Background}" >
+            <!--状态管理器 管理控件的各种状态 状态动画等-->
+    			<VisualStateManager.VisualStateGroups>
+                    <!--状态组：每个状态组里的状态是互斥的--> 
+    				<VisualStateGroup x:Name="FocusStates">
+    					<VisualState x:Name="Unfocused"/>
+    				</VisualStateGroup>
+    				<VisualStateGroup x:Name="ValidationStates">
+    					<VisualState x:Name="Valid"/>
+    					<VisualState x:Name="InvalidUnfocused"/>
+    				</VisualStateGroup>
+    				<VisualStateGroup x:Name="CommonStates">
+    					<VisualState x:Name="MouseOver"/>
+    					<VisualState x:Name="Pressed"/>
+    					<VisualState x:Name="Disabled"/>
+    				</VisualStateGroup>
+                    <VisualStateGroup x:Name="CheckStates">
+                        <VisualState x:Name="Unchecked">
+                        <!--获得状态时的动画-->
+                            <Storyboard >
+                                <ColorAnimation  Storyboard.TargetName="borderColor" Storyboard.TargetProperty="Color" To="Gray"></ColorAnimation>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Indeterminate"/>
+                        <VisualState x:Name="Checked">
+                            <Storyboard >
+                                <ColorAnimation Storyboard.TargetName="borderColor" Storyboard.TargetProperty="Color" To="Gold"></ColorAnimation>
+                            </Storyboard>
+                        </VisualState>
+                        <!--状态组各状态间相互转化时的动画管理-->
+                        <VisualStateGroup.Transitions>
+                            <VisualTransition  To="Checked" GeneratedDuration ="0:0:0.1">
+                            </VisualTransition>
+                            <VisualTransition To="Unchecked" GeneratedDuration ="0:0:0.1">
+                            </VisualTransition>
+                        </VisualStateGroup.Transitions>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <!--边框-->
+				<Border  x:Name="btnBorder" BorderThickness="4" >
+				<Border.BorderBrush>
+					<LinearGradientBrush>
+						<GradientStop x:Name="borderColor" Color="Gray" Offset="0.0" />
+					</LinearGradientBrush>
+				</Border.BorderBrush>
+				</Border>
+    		</Grid>
+    	</ControlTemplate>
+            
+        </RadioButton.Template>
+</RadioButton>
